@@ -25,3 +25,15 @@ Import-Module "C:\Users\raulg\Documents\GitHub\desktop-tutorial\PIA_PC\Recursos.
 Get-Module Detectar-ConexionesSospechosas
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#EJEMPLO [ARCHIVOS_OCULTOS]
+En este apartado es probable que el usuario se confunda al ver que el programa no responde, es debido a que hace una busqueda en todo el directorio, es normal ya que hace una busqueda muy a fondo.
+$carpeta = Read-Host "Por favor, proporciona el nombre de la carpeta a buscar"
+$directorio_raiz = "C:\"
+$buscar = Get-ChildItem -Path $directorio_raiz -Recurse -Directory -ErrorAction SilentlyContinue | Where-Object { $_.Name -eq $carpeta }
+En caso de que encuentre la carpeta con el nombre indicado,
+if ($buscar) {
+    #Al encontrar una busqueda similar, imprimira todos los nombres de las carpetas que tengan en su direccion el nombre de la carpeta
+    Write-Host "Se encontro la carpeta:"
+    $buscar | ForEach-Object { Write-Host $_.FullName }
+    $buscar | ForEach-Object { $ruta = $_.FullName }
+    write-host $ruta
