@@ -79,6 +79,6 @@ report() {
     echo "Reporte generado en network_report.txt"
 }
 
-main_network
+
 
 
