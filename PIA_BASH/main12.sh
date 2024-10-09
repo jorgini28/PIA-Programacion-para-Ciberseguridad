@@ -1,6 +1,6 @@
 # Importar funciones
 source mainredes.sh
-source puerto2.sh
+source esc_port.sh
 # Mostrar el menu 
 main() {
     echo ""
@@ -21,7 +21,7 @@ while true; do
             main_network
             ;;
         2)
-            ports  
+            escan_port  
             ;;
         3)
             break
