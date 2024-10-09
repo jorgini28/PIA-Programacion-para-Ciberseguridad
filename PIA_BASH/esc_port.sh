@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#Al momento que se va a abrir el archivo se tiene que indicar la IP. Ej: ./esc_port.sh 000.000.00.0
 #La funcion sirve para marcar error si no se ingreso la IP correctamente
 function error_prog() {
  echo "Error: $1"
