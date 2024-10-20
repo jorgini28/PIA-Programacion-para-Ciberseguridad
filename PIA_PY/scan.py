@@ -24,7 +24,7 @@ def scan_network(network):
     return active_ips
 
 # Funcion para ejecutar el escaneo
-def main():
+def main_scan():
     network = input("Introduce el rango de red (ej. 192.168.1): ")
     print("Escaneando la red...")
     
@@ -42,4 +42,4 @@ def main():
                     print(f"IP: {ip}, Puertos abiertos: {open_ports}")
 
 if __name__ == "__main__":
-    main()
+    main_scan()
