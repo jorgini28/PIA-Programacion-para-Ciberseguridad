@@ -19,7 +19,7 @@ def generar_contraseña(longitud=12):
     
     return contraseña
 
-def main():
+def main_contraseña():
     """
     Función principal para interactuar con el usuario.
     Pide la longitud de la contraseña y genera una contraseña segura.
@@ -42,4 +42,4 @@ def main():
             print(f"Error inesperado: {e}. Inténtelo de nuevo.")
 
 if __name__ == "__main__":
-    main()
+    main_contraseña()
