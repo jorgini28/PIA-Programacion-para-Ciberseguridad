@@ -1,9 +1,8 @@
 import requests
 
-API_KEY = input("Por favor, ingresa tu clave de API: ")
-BASE_URL = 'https://api.abuseipdb.com/api/v2/'
-
 def check_ip(ip_address):
+    API_KEY = input("Por favor, ingresa tu clave de API: ")
+    BASE_URL = 'https://api.abuseipdb.com/api/v2/'
     url = f'{BASE_URL}check'
     headers = {
         'Accept': 'application/json',
@@ -92,4 +91,4 @@ def main_menu():
             print("Opcion invalida.")
 
 if __name__ == "__main__":
-    main_menu()
+    menu_data()
