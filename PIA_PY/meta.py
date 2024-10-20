@@ -19,7 +19,7 @@ def listar_archivos(ruta_directorio, extensiones):
             archivos_encontrados.append(archivo)
     return archivos_encontrados
 
-def main():
+def menu_meta():
     while True:
         print("\n--- Menú ---")
         print("1. Mostrar metadatos de archivos .mp3")
@@ -63,4 +63,4 @@ def main():
             print("Opción no válida. Por favor, selecciona una opción válida.")
 
 if __name__ == "__main__":
-    main()
+    menu_meta()
