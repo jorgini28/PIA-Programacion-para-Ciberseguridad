@@ -1,8 +1,8 @@
 import os
 from mutagen import File
 
+#Carga y muestra metadatos de un archivo
 def mostrar_metadatos(ruta_archivo):
-    # Cargar el archivo
     audio = File(ruta_archivo)
     if audio is not None:
         print(f"\nMetadatos de {ruta_archivo}:")
@@ -11,17 +11,18 @@ def mostrar_metadatos(ruta_archivo):
     else:
         print(f"No se pudieron leer los metadatos de {ruta_archivo}")
 
+#Busca archivos en un directorio por sus extensiones
 def listar_archivos(ruta_directorio, extensiones):
-    # Listar archivos con extensiones específicas
     archivos_encontrados = []
     for archivo in os.listdir(ruta_directorio):
         if archivo.endswith(extensiones):
             archivos_encontrados.append(archivo)
     return archivos_encontrados
 
+#Maneja la interaccion del usuario y la logica del menu
 def main():
     while True:
-        print("\n--- Menú ---")
+        print("\n--- Menu ---")
         print("1. Mostrar metadatos de archivos .mp3")
         print("2. Mostrar metadatos de archivos .flac")
         print("3. Mostrar metadatos de archivos .ogg")
@@ -53,14 +54,14 @@ def main():
                 else:
                     print("No se encontraron archivos en el directorio.")
             else:
-                print("La ruta proporcionada no es un directorio válido.")
+                print("La ruta es invalida")
         
         elif opcion == '8':
             print("Saliendo del programa.")
             break
         
         else:
-            print("Opción no válida. Por favor, selecciona una opción válida.")
+            print("Opcion invalida")
 
 if __name__ == "__main__":
     main()
