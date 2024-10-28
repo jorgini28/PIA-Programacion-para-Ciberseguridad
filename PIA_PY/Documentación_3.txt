@@ -1,0 +1,399 @@
+API_ABUSEDATABASE_MAU.PY
+1. Nombre y explicación general.
+Nombre del código: API_AbuseDataBase_Mau_py
+Función general: Este script verifica y reporta direcciones IP en la API de AbuseIPDB, una base de datos colaborativa que rastrea IPs sospechosas de actividades maliciosas. 
+Proporciona un menú para la verificación, reporte y visualización de errores en un archivo de log.
+
+2. Explicación detallada de cada parte o función.
+Variables y configuración inicial
+API_KEY: Captura la clave de API del usuario, necesaria para autenticar los llamados a la API.
+BASE_URL: URL base de la API de AbuseIPDB.
+CATEGORIAS: Lista de categorías de actividad maliciosa para el reporte de IPs.
+logging.basicConfig: Configura el módulo logging para registrar errores en el archivo log.txt.
+Función check_ip(ip_address)
+Descripción: Envía una solicitud GET a la API para verificar el estado de una IP y muestra la información en la consola.
+Entradas:
+ip_address: Dirección IP a verificar.
+Procesos:
+Construye la URL de verificación con la clave API y los parámetros requeridos.
+Envía la solicitud y maneja posibles errores.
+Salidas:
+Muestra en consola la información de la IP verificada (porcentaje de confianza en abuso, cantidad de reportes, detalles de reportes).
+Registra cualquier error en log.txt.
+Función report_ip(ip_address, comentario, categorias)
+Descripción: Permite reportar una IP con categorías de actividad maliciosa.
+Entradas:
+ip_address: Dirección IP a reportar.
+comentario: Comentario para el reporte.
+categorias: Lista de categorías de abuso seleccionadas.
+Procesos:
+Construye la URL de reporte y envía los datos necesarios mediante POST.
+Maneja los errores HTTP y generales, y los registra.
+Salidas:
+Devuelve la respuesta en formato JSON con el resultado del reporte.
+Función print_error_log()
+Descripción: Imprime los errores registrados en log.txt.
+Entradas: No tiene entradas.
+Procesos:
+Abre log.txt, muestra su contenido o indica que está vacío.
+Salidas: Muestra en pantalla los errores registrados o un mensaje si el archivo está vacío.
+Función menu_data()
+Descripción: Presenta un menú interactivo para verificar, reportar IPs y ver errores registrados.
+Entradas: Entrada del usuario para seleccionar opciones.
+Procesos:
+Llama a las funciones check_ip, report_ip, print_error_log según la opción seleccionada.
+Verifica la selección de categorías para reportes.
+Salidas: Muestra en consola resultados de verificación, reporte o errores.
+Bloque if __name__ == "__main__":
+Descripción: Inicia el menú interactivo cuando se ejecuta el script.
+
+3. Explicación de los módulos y funciones.
+Módulo requests
+Función: Permite hacer solicitudes HTTP a la API de AbuseIPDB.
+Uso: requests.get() y requests.post() para solicitudes GET y POST respectivamente. raise_for_status() captura errores HTTP.
+Módulo logging
+Función: Registra mensajes de error en un archivo de log.
+Configuración: logging.basicConfig() establece el nivel y formato de los mensajes. logging.error() registra mensajes de error.
+Funciones personalizadas
+check_ip(): Hace una solicitud GET para verificar una IP y muestra el resultado.
+report_ip(): Realiza un reporte de IP con categorías de actividad maliciosa mediante POST.
+print_error_log(): Lee el archivo de log y muestra los errores en pantalla.
+menu_data(): Controla el flujo del menú interactivo.
+
+4. Flujo de funcionamiento del código.
+El flujo de este código inicia cuando el usuario ejecuta el archivo y se muestra el menú interactivo (menu_data). Según la opción seleccionada, el usuario puede:
+
+Verificar una IP usando check_ip(), que realiza una solicitud a la API y muestra el historial de actividad maliciosa de la IP.
+Reportar una IP con report_ip(), en la cual se eligen categorías y un comentario que se envían a la API.
+Ver errores registrados en log.txt mediante print_error_log().
+Salir del menú.
+En caso de errores durante las solicitudes, logging registra la información en log.txt, y el usuario puede revisarlos posteriormente mediante la opción del menú.
+
+CONTRASEÑA SEGURA.PY
+1. Nombre del código y explicación general
+Nombre del código: Generador de contraseñas seguras.
+Función general: Este código genera una contraseña aleatoria y segura basada en una longitud especificada por el usuario. La contraseña generada cumple con ciertos 
+requisitos de seguridad, y el código maneja errores de manera estructurada, registrándolos en un archivo de log.
+
+2. Explicación detallada de cada parte o función
+Configuración de logging y lista errores
+Descripción: Configura el módulo logging para registrar errores en el archivo errores.log y crea una lista errores para almacenar los mensajes de error.
+Uso:
+logging.basicConfig(): Establece el archivo de log, el nivel de error y el formato del mensaje.
+errores: Lista para almacenar errores específicos y mostrarlos al final de la ejecución.
+Función generar_contraseña(longitud=12)
+Descripción: Genera una contraseña segura con longitud mínima de 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales.
+Entradas:
+longitud: Longitud de la contraseña. Por defecto, es 12.
+Procesos:
+Verifica que la longitud sea de al menos 8 caracteres; si no, registra el error y lanza un ValueError.
+Crea una cadena de caracteres posibles (ascii_letters, digits, punctuation) y genera una contraseña aleatoria con random.choice.
+Salidas:
+Devuelve la contraseña generada o, si la longitud es insuficiente, registra el error y lanza una excepción.
+Función main_contraseña()
+Descripción: Función principal que pide al usuario la longitud deseada para la contraseña y genera una contraseña segura.
+Entradas:
+Solicita al usuario la longitud de la contraseña.
+Procesos:
+Intenta convertir la entrada en un entero y genera la contraseña llamando a generar_contraseña().
+Si ocurre un ValueError, muestra el mensaje de error y permite intentarlo de nuevo.
+En caso de cualquier otro error, lo registra en el archivo de log y muestra un mensaje.
+Salidas:
+Muestra en pantalla la contraseña generada.
+Al finalizar, muestra los errores registrados, si los hay.
+Bloque if __name__ == "__main__":
+Descripción: Ejecuta main_contraseña() cuando se corre el script directamente, iniciando la interacción con el usuario.
+
+3. Explicación de los módulos y funciones
+Módulo random
+Función: Genera caracteres aleatorios para la contraseña.
+Uso: random.choice() selecciona caracteres aleatorios para construir la contraseña.
+Módulo string
+Función: Proporciona grupos de caracteres como letras, dígitos y símbolos de puntuación.
+Uso: string.ascii_letters, string.digits, string.punctuation se usan para formar la base de caracteres de la contraseña.
+Módulo logging
+Función: Registra errores en el archivo errores.log.
+Configuración: logging.basicConfig() define el archivo y el formato de registro, mientras que logging.error() registra mensajes específicos.
+Función generar_contraseña()
+Función: Genera una contraseña aleatoria con una longitud y requisitos específicos.
+Implementación: Se valida la longitud, y si es menor de 8, se registra el error; luego se genera una contraseña aleatoria.
+Función main_contraseña()
+Función: Controla la interacción con el usuario y maneja excepciones.
+Implementación: Solicita la longitud de la contraseña y captura errores que puedan ocurrir, mostrándolos al usuario y registrándolos si son inesperados.
+
+4. Flujo de funcionamiento del código
+El flujo comienza con main_contraseña() al ejecutarse el script. El usuario especifica la longitud de la contraseña, y main_contraseña llama a generar_contraseña(), 
+que genera la contraseña. En caso de errores de longitud, registra el mensaje en errores y en errores.log. Al finalizar, main_contraseña imprime cualquier error 
+registrado durante la ejecución.
+
+SHODAN.PY
+1. Nombre del código y explicación general
+Nombre del código: Shodan
+Función general: Este código interactúa con la API de Shodan para consultar información sobre dispositivos conectados a Internet. Realiza búsquedas de dispositivos, 
+obtiene datos de una IP específica, y muestra vulnerabilidades de hosts, además de gestionar errores y registrar eventos en un archivo de log.
+
+2. Explicación detallada de cada parte o función
+Configuración de logging
+Descripción: Configura el archivo de log shodanAPI.log para registrar eventos.
+Uso: logging.basicConfig() define el archivo, el nivel de registro, el formato de mensaje y la fecha.
+Función info_API(ShodanApi)
+Descripción: Muestra información general sobre la cuenta de Shodan API del usuario.
+Entradas: ShodanApi (objeto Shodan).
+Procesos:
+Utiliza ShodanApi.info() para obtener y mostrar información general de la cuenta.
+Si ocurre un error, muestra un mensaje y registra el error en el log.
+Llama a rec_shodan() para reiniciar en caso de error.
+Salidas: Imprime en pantalla la información de la cuenta Shodan.
+Función busq_dis(ShodanApi)
+Descripción: Realiza una búsqueda de dispositivos según el término ingresado por el usuario y limita el número de resultados mostrados.
+Entradas:
+ShodanApi: Objeto de API.
+Procesos:
+Solicita al usuario un término de búsqueda y realiza la consulta con ShodanApi.search().
+Muestra el total de resultados encontrados y solicita al usuario la cantidad de resultados a visualizar (limitado a 10).
+En caso de error o número inválido, registra el evento en el log y vuelve a llamar a la función.
+Salidas: Imprime una lista de dispositivos, incluyendo la IP y algunos datos básicos.
+Función busc_v(ShodanApi, ip)
+Descripción: Busca vulnerabilidades asociadas con una IP específica.
+Entradas:
+ShodanApi: Objeto de API.
+ip: Dirección IP que el usuario desea analizar.
+Procesos:
+Obtiene información de la IP introducida con ShodanApi.host(ip).
+Muestra datos del host, como IP, organización, sistema operativo y vulnerabilidades detectadas.
+Registra cualquier error en el log y muestra un mensaje.
+Salidas: Imprime la información detallada del host y las vulnerabilidades asociadas.
+Función principal rec_shodan()
+Descripción: Controla el flujo del programa, solicitando la clave API, iniciando la conexión a Shodan, y llamando a las funciones de búsqueda de dispositivos y de vulnerabilidades.
+Entradas:
+Solicita la clave API y la IP del host.
+Procesos:
+Configura la API de Shodan con la clave del usuario y llama a info_API, busq_dis, y busc_v.
+Registra errores si la API es incorrecta o si ocurre algún fallo.
+Salidas: Ejecuta cada función para mostrar la información y vulnerabilidades.
+Bloque if __name__ == "__main__":
+Descripción: Inicia el programa con una llamada a rec_shodan() cuando el script se ejecuta directamente.
+
+3. Explicación de los módulos y funciones
+Módulo shodan
+Función: Permite realizar consultas a la API de Shodan.
+Uso: shodan.Shodan() configura la API; info(), search(), y host() ejecutan diversas consultas para obtener información de la cuenta y de dispositivos.
+Módulo logging
+Función: Registra eventos y errores en shodanAPI.log.
+Implementación: Configura el log y usa logging.info() para registrar mensajes.
+Función info_API()
+Función: Muestra información de la cuenta de usuario en Shodan.
+Implementación: Llama a ShodanApi.info() para extraer y mostrar detalles.
+Función busq_dis()
+Función: Busca dispositivos y limita los resultados mostrados.
+Implementación: Utiliza ShodanApi.search() para obtener dispositivos en base al término ingresado y muestra un número limitado de resultados.
+Función busc_v()
+Función: Muestra vulnerabilidades en una IP específica.
+Implementación: Usa ShodanApi.host() para obtener la información de vulnerabilidades y datos del host.
+Función rec_shodan()
+Función: Solicita la clave API y controla el flujo del programa.
+Implementación: Llama a cada función en secuencia y maneja errores de conexión con la API.
+
+4. Flujo de funcionamiento del código
+El flujo inicia con rec_shodan(), solicitando la clave API de Shodan y configurando la conexión. Luego llama a info_API() para mostrar la información general de la cuenta, 
+seguida de busq_dis() para buscar dispositivos basados en un término especificado por el usuario. Finalmente, solicita una IP y llama a busc_v() para listar las vulnerabilidades asociadas. 
+Todos los errores se registran en shodanAPI.log.
+
+MDATOS.PY
+1. Nombre del código y explicación general
+Nombre del código: MDATOS
+Función general: Este código permite al usuario explorar y mostrar los metadatos de archivos multimedia específicos (.mp3, .flac, .ogg, .wav, .mp4, y .JPG) dentro de un directorio seleccionado. 
+Incluye opciones para visualizar errores registrados en un log y manejar excepciones de forma organizada.
+
+2. Explicación detallada de cada parte o función
+Configuración de logging
+Descripción: Configura el registro de errores en un archivo llamado errores_metadatos.log para registrar errores y excepciones que ocurran durante la ejecución.
+Uso: logging.basicConfig() define el archivo de log, el nivel de registro (ERROR), y el formato de mensaje y fecha.
+Función mostrar_metadatos(ruta_archivo)
+Descripción: Muestra los metadatos de un archivo multimedia.
+Entradas:
+ruta_archivo: Ruta del archivo multimedia.
+Procesos:
+Usa mutagen.File() para cargar el archivo y extraer los metadatos.
+Si el archivo no tiene metadatos o no se puede leer, registra y muestra un error.
+Salidas: Imprime en pantalla los metadatos del archivo o muestra un mensaje de error si la operación falla.
+Función listar_archivos(ruta_directorio, extensiones)
+Descripción: Lista los archivos en un directorio con extensiones específicas.
+Entradas:
+ruta_directorio: Ruta del directorio.
+extensiones: Extensiones de archivo para filtrar (.mp3, .flac, etc.).
+Procesos:
+Recorre el directorio y filtra archivos con las extensiones especificadas.
+En caso de error al listar el directorio, muestra y registra el error.
+Salidas: Devuelve una lista de archivos con las extensiones deseadas.
+Función imprimir_errores()
+Descripción: Muestra los errores registrados en el archivo de log.
+Procesos:
+Abre el archivo errores_metadatos.log y muestra su contenido.
+Si el archivo no existe, muestra un mensaje al respecto.
+Si ocurre algún error al leer el archivo, muestra y registra el error.
+Salidas: Imprime en pantalla los errores registrados o muestra un mensaje si el archivo no existe.
+Función menu_meta()
+Descripción: Presenta un menú interactivo para que el usuario seleccione una acción.
+Procesos:
+Muestra un menú con opciones para mostrar los metadatos de diferentes tipos de archivos y listar errores.
+Llama a listar_archivos() para obtener archivos del tipo seleccionado y luego a mostrar_metadatos() para cada archivo.
+Gestiona la ruta del directorio y registra cualquier error de ruta inválida.
+Permite ver el archivo de log mediante imprimir_errores().
+Salidas: Según la opción seleccionada, muestra metadatos, errores, o termina el programa.
+Bloque if __name__ == "__main__":
+Descripción: Llama a menu_meta() para iniciar el programa cuando el archivo se ejecuta directamente.
+
+3. Explicación de los módulos y funciones
+Módulo os
+Función: Permite interactuar con el sistema de archivos, especialmente para verificar y listar archivos en directorios.
+Implementación: Usa os.listdir() para listar archivos en un directorio y os.path.join() para construir rutas de archivos.
+Módulo logging
+Función: Registra eventos en el archivo errores_metadatos.log.
+Implementación: logging.basicConfig() configura el archivo, mientras que logging.error() registra mensajes de error.
+Módulo mutagen
+Función: Proporciona herramientas para analizar archivos multimedia y extraer sus metadatos.
+Implementación: Usa File() para cargar el archivo multimedia y obtener sus metadatos.
+Función mostrar_metadatos()
+Función: Muestra los metadatos de un archivo multimedia específico.
+Implementación: Usa mutagen.File() para analizar los metadatos y for clave, valor in audio.items() para recorrer e imprimir cada metadato.
+Función listar_archivos()
+Función: Filtra archivos según extensión en un directorio dado.
+Implementación: Usa os.listdir() y archivo.endswith(extensiones) para encontrar archivos.
+Función imprimir_errores()
+Función: Muestra el contenido del archivo de log de errores.
+Implementación: Usa open() para abrir el archivo y leer el contenido.
+Función menu_meta()
+Función: Controla el menú de opciones y llama a otras funciones según la selección del usuario.
+Implementación: Utiliza un bucle while y input() para navegar en el menú y ejecutar opciones.
+
+4. Flujo de funcionamiento del código
+El programa inicia en menu_meta(), mostrando un menú interactivo. Según la opción seleccionada, se solicita la ruta del directorio y 
+se filtran archivos específicos. Luego, mostrar_metadatos() imprime los metadatos de cada archivo, o se muestra el log con imprimir_errores(). 
+Los errores se registran en errores_metadatos.log para su revisión y depuración.
+
+MENU.PY
+1. Nombre del código y explicación general
+Nombre del código: Menú
+Función general: Este programa actúa como un menú central que permite al usuario acceder a varias funcionalidades de análisis de IP, escaneo de puertos, obtención de metadatos, 
+generación de contraseñas y consulta en bases de datos de abuso de IP, proporcionando un acceso sencillo y directo a cada herramienta.
+
+2. Explicación detallada de cada parte o función
+Función menu()
+Descripción: Muestra un menú principal interactivo con opciones para acceder a diferentes herramientas.
+Procesos:
+Muestra las opciones de las distintas herramientas y solicita al usuario que elija una.
+Verifica que la entrada sea numérica y la convierte a un entero.
+Ejecuta la opción seleccionada usando llamadas a funciones de módulos externos.
+Si elige la opción 6, finaliza el programa con un mensaje de despedida.
+Maneja entradas inválidas mostrando un mensaje de error.
+Entradas: No tiene parámetros, solo usa la entrada del usuario a través de input().
+Salidas: Llama a la función de la opción seleccionada o muestra un mensaje de error si la opción es inválida.
+
+3. Explicación de los módulos y funciones importadas
+API_AbuseDataBase_Mau.menu_data()
+Función: Inicia el menú para realizar consultas de IP en una base de datos de abuso.
+Implementación: menu_data() pertenece al módulo API_AbuseDataBase_Mau y permite consultar información detallada de la reputación de IPs para identificar posibles amenazas.
+rec_shodan()
+Función: Ejecuta la funcionalidad de Shodan, como la búsqueda de dispositivos y vulnerabilidades en redes.
+Implementación: Importado desde el módulo Shodan, rec_shodan() proporciona al usuario acceso a información y búsqueda avanzada en la red mediante la API de Shodan.
+main_scan()
+Función: Realiza el escaneo de puertos e IPs para detectar servicios y posibles vulnerabilidades.
+Implementación: Desde el módulo scan, main_scan() usa herramientas de escaneo para analizar una IP específica y muestra los resultados.
+menu_meta()
+Función: Presenta el menú para obtener metadatos de archivos multimedia específicos y controlar errores.
+Implementación: Desde el módulo meta, menu_meta() permite al usuario obtener metadatos de varios tipos de archivos multimedia y visualizar errores registrados.
+main_contraseña()
+Función: Genera contraseñas seguras basadas en las preferencias del usuario.
+Implementación: Desde el módulo contraseñas, main_contraseña() ejecuta la generación de contraseñas aleatorias con opciones de longitud y complejidad personalizables.
+
+4. Flujo de funcionamiento del código
+Al ejecutar el archivo principal, la función menu() presenta el menú interactivo. Según la opción ingresada, el código llama a funciones específicas importadas de módulos externos, 
+activando cada herramienta. El programa verifica si la entrada es válida y actúa en consecuencia, ya sea ejecutando la función correspondiente o mostrando un mensaje de error. 
+Al seleccionar la opción "Salir", el programa se cierra, finalizando el menú.
+
+MENU1.PY
+1. Nombre del código y explicación general
+Nombre del código: Menu 1
+Función general: Este programa presenta un menú central que permite al usuario seleccionar y ejecutar diferentes herramientas de ciberseguridad y 
+análisis de información, incluyendo bases de datos de abuso de IP, Shodan, escaneo de IP y puertos, obtención de metadatos, y un generador de contraseñas seguras.
+
+2. Explicación detallada de cada parte o función
+Función menu()
+Descripción: Muestra un menú interactivo en la consola, permitiendo al usuario elegir entre distintas herramientas de análisis y generación de datos.
+Procesos:
+Despliega un menú con opciones numeradas y espera una entrada del usuario.
+Verifica que la opción ingresada sea numérica y válida.
+Llama a funciones específicas dependiendo de la selección del usuario.
+Si la opción ingresada es 6, termina el programa mostrando un mensaje de despedida.
+Entradas: Utiliza input() para recibir la selección del usuario.
+Salidas: Llama a la función correspondiente o muestra un mensaje de error si la opción es inválida.
+
+3. Explicación de los módulos y funciones importadas
+menu_data() desde API_AbuseDataBase_Mau
+Función: Accede a una base de datos de abuso de IPs para realizar consultas y obtener información detallada de reputación.
+Implementación: menu_data() permite consultar información de seguridad de IPs y detectar amenazas.
+rec_shodan() desde Shodan
+Función: Ejecuta la funcionalidad de la API de Shodan, permitiendo búsquedas de dispositivos y vulnerabilidades en la red.
+Implementación: rec_shodan() permite realizar consultas de dispositivos conectados y verificar su estado y posibles vulnerabilidades.
+main_scan() desde scan
+Función: Escanea IPs y puertos, proporcionando información de servicios activos y posibles puntos vulnerables en el sistema.
+Implementación: main_scan() permite analizar la seguridad de una IP específica, ejecutando un escaneo en puertos abiertos y servicios.
+menu_meta() desde mdatos
+Función: Presenta un menú para extraer y visualizar metadatos de archivos multimedia específicos.
+Implementación: menu_meta() permite al usuario ver los metadatos de archivos de varios formatos y manejar los errores registrados.
+main_contraseña() desde ContraseñaSegura
+Función: Genera contraseñas seguras aleatorias de acuerdo con las preferencias del usuario.
+Implementación: main_contraseña() facilita la creación de contraseñas complejas con un control de longitud y tipos de caracteres.
+
+4. Flujo de funcionamiento del código
+Cuando el usuario ejecuta el programa, se muestra el menú principal con opciones de herramientas específicas. El usuario selecciona una opción, 
+y el programa verifica si es válida. Si es así, se llama a la función correspondiente. El programa permite al usuario interactuar con una variedad 
+de herramientas de seguridad hasta que elija la opción de salir.
+
+SCAN.PY
+1. Nombre del código y explicación general
+Nombre del código: Scan
+Función general: Este programa permite al usuario escanear una red local para identificar dispositivos activos y los puertos abiertos en cada uno, 
+utilizando un rango de IPs y realizando escaneos concurrentes de puertos para optimizar la velocidad del análisis.
+
+2. Explicación detallada de cada parte o función
+scan_ip(ip, ports)
+Descripción: Escanea una IP específica en un conjunto de puertos, identificando cuáles están abiertos.
+Entradas:
+ip (str): Dirección IP a escanear.
+ports (list): Lista o rango de puertos a verificar en la IP.
+Procesos:
+Crea un socket de conexión por cada puerto, intentando conectarse.
+Si la conexión es exitosa (connect_ex devuelve 0), añade el puerto a la lista de open_ports.
+Salidas:
+Retorna la IP y una lista de puertos abiertos en dicha IP.
+scan_network(network)
+Descripción: Escanea un rango de direcciones IP para detectar cuáles están activas en la red.
+Entradas:
+network (str): Rango de red en formato 192.168.1.
+Procesos:
+Realiza un ping a cada IP en el rango de 1 a 254, agregando las IPs activas a active_ips.
+Salidas:
+Retorna una lista de IPs activas en el rango dado.
+main_scan()
+Descripción: Función principal que coordina el escaneo de la red y el escaneo de puertos en las IPs activas.
+Entradas:
+Solicita al usuario el rango de red (formato 192.168.1).
+Procesos:
+Llama a scan_network() para obtener las IPs activas.
+Configura un rango de puertos a escanear (1-1024) y utiliza ThreadPoolExecutor para ejecutar el escaneo de puertos en paralelo para cada IP.
+Salidas:
+Imprime las IPs activas y, para cada IP con puertos abiertos, muestra los números de los puertos disponibles.
+
+3. Explicación de módulos y funciones externas
+os: Utiliza os.system() para ejecutar el comando ping y verificar la conectividad de IPs dentro de la red.
+socket: Crea y configura sockets para intentar conexiones en los puertos, lo cual permite identificar si un puerto está abierto.
+ThreadPoolExecutor desde concurrent.futures: Facilita la ejecución concurrente de escaneos de puertos, acelerando el proceso al permitir múltiples escaneos simultáneos.
+
+4. Flujo de funcionamiento del código
+El usuario ingresa un rango de red (192.168.1).
+La función scan_network revisa cada IP en el rango y almacena aquellas que responden al ping.
+main_scan configura el rango de puertos y ejecuta scan_ip en cada IP activa, usando ThreadPoolExecutor para escanear en paralelo.
+Para cada IP con puertos abiertos, muestra la IP y los puertos disponibles en pantalla.
+Si no se encuentran IPs activas, el programa informa y termina.
